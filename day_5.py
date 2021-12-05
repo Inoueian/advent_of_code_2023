@@ -1,4 +1,4 @@
-import numpy as np
+from collections import defaultdict
 
 
 def inclusive_range(x1, x2):
@@ -37,41 +37,37 @@ def get_diagonal_line_locations(x1, y1, x2, y2):
         return []
 
 
-def count_lines(data):
+def count_lines_dict(data):
     lines = parse_input(data)
-    max_int = max(pos for line in lines for pos in line)
-    floor = np.zeros((max_int+1, max_int+1), dtype=int)
+    count_dict = defaultdict(int)
     for line in lines:
         line_locations = get_line_locations(*line)
         for loc in line_locations:
-            x, y = loc
-            floor[y,x] += 1
-    return floor
+            count_dict[loc] += 1
+    return count_dict
+    
 
-
-def count_lines_with_diagonals(data):
+def count_lines_with_diagonals_dict(data):
     lines = parse_input(data)
-    max_int = max(pos for line in lines for pos in line)
-    floor = np.zeros((max_int+1, max_int+1), dtype=int)
+    count_dict = defaultdict(int)
     for line in lines:
         line_locations = get_line_locations(*line)
         if not line_locations:
             line_locations = get_diagonal_line_locations(*line)
         for loc in line_locations:
-            x, y = loc
-            floor[y,x] += 1
-    return floor
-
+            count_dict[loc] += 1
+    return count_dict
+    
 
 if __name__ == '__main__':
     with open('data/day_5_input.txt', 'r') as f:
         data = f.read().strip()
     
-    line_count_1 = count_lines(data)
-    part_1 = (line_count_1 >= 2).sum()
+    count_dict_1 = count_lines_dict(data)
+    part_1 = sum([count >= 2 for count in count_dict_1.values()])
 
-    line_count_2 = count_lines_with_diagonals(data)
-    part_2 = (line_count_2 >= 2).sum()
+    count_dict_2 = count_lines_with_diagonals_dict(data)
+    part_2 = sum([count >= 2 for count in count_dict_2.values()])
     
     print(f'Part 1 answer: {part_1}')
     print(f'Part 2 answer: {part_2}')
