@@ -17,7 +17,7 @@ def parse_line(line):
 
 
 def parse_input(data):
-    lines = data.split('\n')
+    lines = data.strip().split('\n')
     return [parse_line(line) for line in lines]
 
 
@@ -61,7 +61,7 @@ def count_lines_with_diagonals_dict(data):
 
 if __name__ == '__main__':
     with open('data/day_5_input.txt', 'r') as f:
-        data = f.read().strip()
+        data = f.read()
     
     count_dict_1 = count_lines_dict(data)
     part_1 = sum([count >= 2 for count in count_dict_1.values()])
