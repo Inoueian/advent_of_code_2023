@@ -6,7 +6,8 @@ class Launcher:
         self.x_min, self.x_max, self.y_min, self.y_max = self.parse_input(data)
 
     def get_time_range_for_x(self, v_x):
-        """When is the probe in the correct x position?"""
+        """When is the probe in the correct x position?
+        Also, does the x position get stuck within the right range?"""
         time_step = 0
         x = 0
         good_times = []
