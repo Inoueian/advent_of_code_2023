@@ -13,8 +13,10 @@ data = ("467..114..\n" +
 
 
 def test_get_symbol_list():
-    assert get_symbol_list(data) == [(1, 3), (3, 6), (4, 3),
-                                     (5, 5), (8, 3), (8, 5)]
+    symbol_list = get_symbol_list(data)
+    assert [symbol.char for symbol in symbol_list] == ["*", "#", "*", "+", "$", "*"]
+    assert [symbol.location for symbol in symbol_list] == [(1, 3), (3, 6), (4, 3),
+                                                           (5, 5), (8, 3), (8, 5)]
 
 
 def test_get_engine_parts():
@@ -38,3 +40,11 @@ def test_get_connected_engine_parts():
 
 def test_get_engine_sum():
     assert get_engine_sum(data) == 4361
+
+
+def test_get_gear_ratios():
+    assert get_gear_ratios(data) == [16345, 451490]
+
+
+def test_get_gear_ratio_sum():
+    assert get_gear_ratio_sum(data) == 467835
